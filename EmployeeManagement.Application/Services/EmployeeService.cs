@@ -18,31 +18,77 @@ namespace EmployeeManagement.Application.Services
 
         public EmployeeDto GetEmployeeById(int id)
         {
-            var employee = _employeeRepository.GetEmployeeById(id);
-            return null;
+            var employeeData = _employeeRepository.GetEmployeeById(id);
+            var employeeDto = new EmployeeDto()
+            {
+                Id = employeeData.Id,
+                Name = employeeData.Name,
+                Department = employeeData.Department,
+                Age = employeeData.Age,
+                Address = employeeData.Address
+            };
+            return employeeDto;
         }
 
         public IEnumerable<EmployeeDto> GetEmployees()
         {
             //Get data from Repository
-            var employee = _employeeRepository.GetEmployees();
-            return null;
+
+            var listOfEmployeeData = _employeeRepository.GetEmployees();
+            var listOfEmployeeDto = new List<EmployeeDto>();
+            foreach (var employeeData in listOfEmployeeData)
+            {
+                var employee = new EmployeeDto()
+                {
+                    Id = employeeData.Id,
+                    Name = employeeData.Name,
+                    Department = employeeData.Department,
+                    Age = employeeData.Age,
+                    Address = employeeData.Address
+                };
+                listOfEmployeeDto.Add(employee);
+            }
+            return listOfEmployeeDto;       
         }
-        public EmployeeDto InsertEmployee(EmployeeData employee)
+        public bool InsertEmployee(EmployeeDto employees)
         {
-            var employe = _employeeRepository.InsertEmployee(employee);
-            return null;
+            var employeeData = new EmployeeData()
+            {
+              
+                Name = employees.Name,
+                Department = employees.Department,
+                Age = employees.Age,
+                Address = employees.Address
+            };
+
+            _employeeRepository.InsertEmployee(employeeData);
+            return true;
         }
-        public EmployeeDto DeleteEmployee(EmployeeData employee)
+        public bool DeleteEmployee(int id)
         {
-            var employe = _employeeRepository.DeleteEmployee(employee);
-            return null;
+            /*var employeData = new EmployeeData()
+            {
+                Id=id
+
+            };*/
+            _employeeRepository.DeleteEmployee(id);
+            return true;
         }
-       public EmployeeDto  UpdateEmployee(EmployeeData employee)
+       public bool UpdateEmployee(EmployeeDto employees)
         {
-            var employe = _employeeRepository.UpdateEmployee(employee);
-            return null;
+            var employeData = new EmployeeData()
+            {
+                Id=employees.Id,
+                Name = employees.Name,
+                Department = employees.Department,
+                Age = employees.Age,
+                Address = employees.Address
+
+            };
+            _employeeRepository.UpdateEmployee(employeData);
+            return true;
         }
 
+        
     }
 }

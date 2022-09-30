@@ -1,7 +1,7 @@
 ﻿using EmployeeManagement.DataAccess.Contracts;
 using EmployeeManagement.DataAccess.Models;
 using Microsoft.Data.SqlClient;
-using System;
+//using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,7 +12,18 @@ namespace EmployeeManagement.DataAccess.Repository
     /// </summary>
     public class EmployeeRepository : IEmployeeRepository
     {
+        
         private SqlConnection _sqlConnection;
+        /*public EmployeeRepository(string connectionString)
+        {
+
+            _sqlConnection = new SqlConnection(connectionString);
+        }*/
+        public EmployeeRepository()
+            {
+            _sqlConnection = new SqlConnection("data source=(localdb)\\mssqllocaldb;database=TRAINING;");
+
+            }
 
         public EmployeeData GetEmployeeById(int id)
         {
@@ -20,8 +31,8 @@ namespace EmployeeManagement.DataAccess.Repository
             try
             {
                 _sqlConnection.Open();
-                var sqlcommand = new SqlCommand(cmdText: "select * from EMPLOYEE where id = @id", _sqlConnection);
-                sqlcommand.Parameters.AddWithValue("id",id);
+                var sqlcommand = new SqlCommand(cmdText: "select * from EMPLOYEE where Id = @id", _sqlConnection);
+                sqlcommand.Parameters.AddWithValue("Id", id);
                 var sqlDataReader = sqlcommand.ExecuteReader();
                 EmployeeData employee = null;
 
@@ -37,11 +48,15 @@ namespace EmployeeManagement.DataAccess.Repository
                 }
                 return employee;
             }
-            catch (Exception)
+            catch 
             {
                 throw;
 
-            }     
+            }
+            finally
+            {
+                _sqlConnection.Close();
+            }
         }
         public IEnumerable<EmployeeData> GetEmployees()
         {
@@ -65,10 +80,9 @@ namespace EmployeeManagement.DataAccess.Repository
                 }
                 return listOfEmployee;
             }
-            catch (Exception ex)
+            catch 
             {
-                Console.WriteLine(ex.Message);
-                return null;
+                throw;
             }
             finally
             {
@@ -88,9 +102,9 @@ namespace EmployeeManagement.DataAccess.Repository
                 sqlcommand.ExecuteNonQuery();
                 return true;
             }
-            catch (Exception ex)
+            catch 
             {
-                Console.WriteLine(ex.Message);
+                
                 throw;
             }
             finally
@@ -100,20 +114,19 @@ namespace EmployeeManagement.DataAccess.Repository
             }
 
         }
-        public bool DeleteEmployee(EmployeeData employee)
+        public bool DeleteEmployee(int id)
         {
             try
             {
                 _sqlConnection.Open();
                 var sqlcommand = new SqlCommand(cmdText: "delete from EMPLOYEE where Id=@id", _sqlConnection);
-                sqlcommand.Parameters.AddWithValue("id", employee.Id);
+                sqlcommand.Parameters.AddWithValue("id",id);
                 sqlcommand.ExecuteNonQuery();
                 return true;
             }
-            catch (Exception ex)
+            catch 
             {
-                Console.WriteLine(ex.Message);
-                return false;
+                throw;
             }
             finally
             {
@@ -126,19 +139,19 @@ namespace EmployeeManagement.DataAccess.Repository
             try
             {
                 _sqlConnection.Open();
-                var sqlcommand = new SqlCommand(cmdText: "update STUDENT set Name=@name, Department=@dept,Age=@age,Address=@addres where Id=@id", _sqlConnection);
-                sqlcommand.Parameters.AddWithValue("name", employee.Name);
-                sqlcommand.Parameters.AddWithValue("dept", employee.Department);
-                sqlcommand.Parameters.AddWithValue("age", employee.Age);
-                sqlcommand.Parameters.AddWithValue("addres", employee.Address);
+                var sqlcommand = new SqlCommand(cmdText: "update EMPLOYEE set Name=@name, Department=@deptartment,Age=@age,Address=@address where Id=@id", _sqlConnection);
                 sqlcommand.Parameters.AddWithValue("id", employee.Id);
+                sqlcommand.Parameters.AddWithValue("name", employee.Name);
+                sqlcommand.Parameters.AddWithValue("deptartment", employee.Department);
+                sqlcommand.Parameters.AddWithValue("age", employee.Age);
+                sqlcommand.Parameters.AddWithValue("address", employee.Address);
+                
                 sqlcommand.ExecuteNonQuery();
                 return true;
             }
-            catch (Exception ex)
+            catch 
             {
-                Console.WriteLine(ex.Message);
-                return false;
+                throw;
             }
             finally
             {

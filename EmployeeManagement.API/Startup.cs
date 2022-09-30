@@ -31,6 +31,8 @@ namespace EmployeeManagement.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.RegisterDependencies();
+          // var connectionString = Configuration.GetValue<string>("ConnectionStrings:StudentDbConnectionString");
+          //  services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
             services.AddControllers();
         }

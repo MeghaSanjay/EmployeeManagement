@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EmployeeManagement.Application\EmployeeManagement.Application.csproj" />
+    <ProjectReference Include="..\EmployeeManagement.DataAccess\EmployeeManagement.DataAccess.csproj" />
   </ItemGroup>
 
 

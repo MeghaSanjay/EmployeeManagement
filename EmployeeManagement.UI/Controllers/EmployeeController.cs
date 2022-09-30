@@ -21,28 +21,66 @@ namespace EmployeeManagement.UI.Controllers
         public IActionResult Index()
         {
             try
-            {
-                var employees = _employeeApiClient.GetEmployees();
-
+            { 
                 //Dummy Data Need to Replace with employees object
-
-
-                var employeeViewModels = new List<EmployeeViewModel>()
-                {
-                    new EmployeeViewModel
-                    {
-                        Id = 1,
-                        Name = "Dummy Name",
-                        Department = "Dummy Department"
-                    }
-                };
-                return View(employeeViewModels);
+                var employee = _employeeApiClient.GetEmployees();
+             
+                return View(employee);
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
+        public IActionResult GetEmployeById(int id)
+        {
+            try
+            {
+                var employeeDetailedView = _employeeApiClient.GetEmployeeById(id);
+
+                return View(employeeDetailedView);
+            }
+            catch(Exception)
+            {
+                throw;
+            }
+        }
+        public IActionResult InsertEmploye(EmployeeDetailedViewModel employeeDetailed)
+        {
+            try
+            {
+                var employeeDetailedview = _employeeApiClient.InsertEmployee(employeeDetailed);
+                return View(employeeDetailedview);
+            }
+            catch(Exception)
+            {
+                throw;
+            }
+        }
+        public IActionResult DeleteEmployes(int id)
+        {
+            try
+            {
+                var employeDetailedView = _employeeApiClient.DeleteEmployee(id);
+                return View(employeDetailedView);
+            }
+            catch(Exception)
+            {
+                throw;
+            }
+        }
+        public IActionResult UpdateEmployes(EmployeeDetailedViewModel employeeDetailed)
+        {
+            try
+            {
+                var employeDetailedView = _employeeApiClient.UpdateEmployee(employeeDetailed);
+                return View(employeDetailedView);
+            }
+            catch(Exception)
+            {
+                throw;
+            }
+        }
+        
     }
 }

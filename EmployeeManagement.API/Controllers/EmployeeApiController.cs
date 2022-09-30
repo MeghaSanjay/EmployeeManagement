@@ -1,5 +1,6 @@
 ﻿using EmployeeManagement.API.Models;
 using EmployeeManagement.Application.Contracts;
+using EmployeeManagement.Application.Models;
 using EmployeeManagement.DataAccess.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,14 +22,23 @@ namespace EmployeeManagement.API.Controllers
         }
 
         [HttpGet]
-        [Route("employeeId/{Id}")]
-        public IActionResult GetEmployeeById([FromRoute] int employeeId)
+        [Route("getById/{id}")]
+        public IActionResult GetEmployeesById([FromRoute] int Id)
         {
             try
             {
-                /// get employee by calling GetEmployeeById() in IEmployeeService and store it in a variable and Map that variable to EmployeeDetailedViewModel. 
-                var employeeDetailedViewModel = _employeeService.GetEmployeeById(employeeId);
-                return Ok(employeeDetailedViewModel);
+                /// get employee by calling GetEmployeeById() in IEmployeeService and store it in a variable and Map that variable to EmployeeDetailedViewModel.
+                
+               var employeeDetailedViewModel = _employeeService.GetEmployeeById(Id);
+                var employeDto = new EmployeeDto
+                {
+                    Id=employeeDetailedViewModel.Id,
+                    Name=employeeDetailedViewModel.Name,
+                    Department=employeeDetailedViewModel.Department,
+                    Age=employeeDetailedViewModel.Age,
+                    Address=employeeDetailedViewModel.Address
+                };
+                return Ok(employeDto);
             }
             catch (Exception ex)
             {
@@ -37,15 +47,27 @@ namespace EmployeeManagement.API.Controllers
         }
 
         [HttpGet]
-        [Route("get-all")]
-        public IActionResult GetEmployees()
+        [Route("employees")]
+        public IActionResult GetEmployee()
         {
             /// get employees by calling GetEmployees() in IEmployeeService and store it in a variable and Map that variable to EmployeeDetailedViewModel. 
             try
             {
-                var EmployeeViewModel = _employeeService.GetEmployees();
+                var listOfEmployeeView = _employeeService.GetEmployees();
+                var listOfEmployeView = new List<EmployeeDetailedViewModel>();
+                foreach(var employeView in listOfEmployeeView)
+                {
+                    var employee = new EmployeeDetailedViewModel()
+                    {
+                        Id=employeView.Id,
+                        Name=employeView.Name,
+                        Department=employeView.Department
 
-                return Ok(EmployeeViewModel);
+                    };
+                    listOfEmployeView.Add(employee);
+                }
+
+                return Ok(listOfEmployeeView);
             }
             catch (Exception ex)
             {
@@ -54,11 +76,19 @@ namespace EmployeeManagement.API.Controllers
         }
         [HttpPost]
         [Route("insertEmployee")]
-        public IActionResult InsertEmployee([FromBody] EmployeeData employee)
+        public IActionResult InsertEmployees([FromBody] EmployeeDetailedViewModel employeeDetailed)
         {
             try
             {
-                var employeeDetailedViewModel = _employeeService.InsertEmployee(employee);
+                var employeeDto = new EmployeeDto()
+                {
+                   // Id = employeeDetailed.Id,
+                    Name = employeeDetailed.Name,
+                    Department = employeeDetailed.Department,
+                    Age = employeeDetailed.Age,
+                    Address = employeeDetailed.Address
+                };
+                var employeeDetailedViewModel = _employeeService.InsertEmployee(employeeDto);
                 return Ok(employeeDetailedViewModel);
             }
             catch (Exception ex)
@@ -67,12 +97,16 @@ namespace EmployeeManagement.API.Controllers
             }
         }
         [HttpDelete]
-        [Route("deleteEmployee")]
-        public IActionResult DeleteEmployee([FromRoute] EmployeeData employee)
+        [Route("deleteEmployee/{id}")]
+        public IActionResult DeleteEmployees([FromRoute] int id)
         {
             try
             {
-                var employeeDetailedViewModel = _employeeService.DeleteEmployee(employee);
+               /* var employeeDto = new EmployeeDto()
+                {
+                    Id =id
+                };*/
+                var employeeDetailedViewModel = _employeeService.DeleteEmployee(id);
                 return Ok(employeeDetailedViewModel);
             }
             catch (Exception ex)
@@ -82,16 +116,24 @@ namespace EmployeeManagement.API.Controllers
         }
         [HttpPut]
         [Route("updateEmployee")]
-        public IActionResult UpdateEmployee([FromBody] EmployeeData employee)
+        public IActionResult UpdateEmployees([FromBody] EmployeeDetailedViewModel employeeDetailed)
         {
             try
             {
-                var employeeDetailedViewModel = _employeeService.UpdateEmployee(employee);
+                var employeeDto = new EmployeeDto()
+                {
+                    Id= employeeDetailed.Id,
+                    Name= employeeDetailed.Name,
+                    Department = employeeDetailed.Department,
+                    Age = employeeDetailed.Age,
+                    Address = employeeDetailed.Address
+                };
+                var employeeDetailedViewModel = _employeeService.UpdateEmployee(employeeDto);
                 return Ok(employeeDetailedViewModel);
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+               return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
         

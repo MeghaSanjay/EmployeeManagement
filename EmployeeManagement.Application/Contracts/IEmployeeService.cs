@@ -10,8 +10,9 @@ namespace EmployeeManagement.Application.Contracts
     {
         IEnumerable<EmployeeDto> GetEmployees();
         EmployeeDto GetEmployeeById(int id);
-        EmployeeDto InsertEmployee(EmployeeData employee);
-        EmployeeDto DeleteEmployee(EmployeeData employee);
-        EmployeeDto UpdateEmployee(EmployeeData employee);
+        bool InsertEmployee(EmployeeDto employees);
+        bool DeleteEmployee(int id);
+        bool UpdateEmployee(EmployeeDto employees);
+       
     }
 }

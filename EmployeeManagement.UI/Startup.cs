@@ -3,6 +3,8 @@ using EmployeeManagement.Application.Services;
 using EmployeeManagement.DataAccess.Contracts;
 using EmployeeManagement.DataAccess.Repository;
 using EmployeeManagement.UI.Configuration;
+using EmployeeManagement.UI.Providers.ApiClients;
+using EmployeeManagement.UI.Providers.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,6 +31,8 @@ namespace EmployeeManagement.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.RegisterDependencies();
+            services.AddScoped<IEmployeeRepository,EmployeeRepository>();
+            services.AddHttpClient<IEmployeeApiClient, EmployeeApiClient>();
             services.AddControllersWithViews();
         }
 

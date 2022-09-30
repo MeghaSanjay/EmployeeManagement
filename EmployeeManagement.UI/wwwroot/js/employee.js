@@ -8,7 +8,7 @@ function bindEvents() {
         var employeeId = event.currentTarget.getAttribute("data-id");
 
         $.ajax({
-            url: 'https://localhost:44383/api/internal/employee/' + employeeId,
+            url: 'https://localhost:6001/api/internal/employee/' +employeeId,
             type: 'GET',
             contentType: "application/json; charset=utf-8",
             success: function (result) {
@@ -27,6 +27,10 @@ function bindEvents() {
                 console.log(error);
             }
         });
+    });
+
+    $(".employeeDelete").on("click", function (event) {
+        console.log("delete click happended");
     });
 }
 
