@@ -30,7 +30,18 @@ function bindEvents() {
     });
 
     $(".employeeDelete").on("click", function (event) {
-        console.log("delete click happended");
+        var employeeId = event.currentTarget.getAttribute("data-id");
+        $.ajax({
+            url: 'https://localhost:6001/api/internal/employee/' + employeeId,
+            type='DELETE',
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                var employeDelete = '<div class="delete"> </div>'
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
     });
 }
 

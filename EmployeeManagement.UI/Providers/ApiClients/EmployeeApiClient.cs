@@ -35,9 +35,9 @@ namespace EmployeeManagement.UI.Providers.ApiClients
             }
 
         }
-        public bool InsertEmployee(EmployeeDetailedViewModel employeeDetailed)
+        public bool InsertEmployee(EmployeeDetailedViewModel employee)
         {
-            var stringContent = new StringContent(JsonConvert.SerializeObject(employeeDetailed));
+            var stringContent = new StringContent(JsonConvert.SerializeObject(employee));
             using (var response = _httpClient.PostAsync("https://localhost:5001/api/insertEmployee", stringContent).Result)
             {
 
@@ -47,7 +47,7 @@ namespace EmployeeManagement.UI.Providers.ApiClients
         public bool DeleteEmployee(int id)
         {
             var stringContent = new StringContent(JsonConvert.SerializeObject(id));
-            using (var response=_httpClient.DeleteAsync("https://localhost:5001/api/deleteEmployee/Id").Result)
+            using (var response=_httpClient.DeleteAsync("https://localhost:5001/api/deleteEmployee/"+id).Result)
             {
                 return true;
             }
