@@ -75,7 +75,7 @@ namespace EmployeeManagement.API.Controllers
             }
         }
         [HttpPost]
-        [Route("insertEmployee")]
+        [Route("employees")]
         public IActionResult InsertEmployees([FromBody] EmployeeDetailedViewModel employeeDetailed)
         {
             try
@@ -97,7 +97,7 @@ namespace EmployeeManagement.API.Controllers
             }
         }
         [HttpDelete]
-        [Route("deleteEmployee/{id}")]
+        [Route("employees/{id}")]
         public IActionResult DeleteEmployees([FromRoute] int id)
         {
             try
@@ -115,7 +115,7 @@ namespace EmployeeManagement.API.Controllers
             }
         }
         [HttpPut]
-        [Route("updateEmployee")]
+        [Route("employees")]
         public IActionResult UpdateEmployees([FromBody] EmployeeDetailedViewModel employeeDetailed)
         {
             try
