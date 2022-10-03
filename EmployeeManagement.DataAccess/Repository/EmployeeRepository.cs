@@ -34,7 +34,7 @@ namespace EmployeeManagement.DataAccess.Repository
                 var sqlcommand = new SqlCommand(cmdText: "select * from EMPLOYEE where Id = @id", _sqlConnection);
                 sqlcommand.Parameters.AddWithValue("Id", id);
                 var sqlDataReader = sqlcommand.ExecuteReader();
-                EmployeeData employee = null;
+                var employee = new EmployeeData();  
 
                 while (sqlDataReader.Read())
                 {

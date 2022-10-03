@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.UI.Controllers.InternalAPI
 {
-    [Route("api/internal/employee")]
+    [Route("api/internal/employees")]
     [ApiController]
     public class EmployeeInternalApiController : ControllerBase
     {
@@ -36,7 +36,7 @@ namespace EmployeeManagement.UI.Controllers.InternalAPI
             }
         }
         [HttpGet]
-        [Route("employees")]
+     //   [Route("employees")]
         public IActionResult GetEmploye()
         {
             try
@@ -50,12 +50,12 @@ namespace EmployeeManagement.UI.Controllers.InternalAPI
             }
         }
         [HttpPost]
-        [Route("employees")]
+      //  [Route("employees")]
         public IActionResult InsertEmployes([FromBody] EmployeeDetailedViewModel employeeDetailed)
         {
             try
             {
-                var employe = _employeeApiClient.GetEmployees();
+                var employe = _employeeApiClient.InsertEmployee(employeeDetailed);
                 return Ok(employe);
             }
             catch (Exception ex)
@@ -64,7 +64,7 @@ namespace EmployeeManagement.UI.Controllers.InternalAPI
             }
         }
         [HttpDelete]
-        [Route("employees/{id}")]
+        [Route("{id}")]
          public IActionResult DeleteEmploye([FromRoute] int id)
          {
              try
@@ -79,7 +79,7 @@ namespace EmployeeManagement.UI.Controllers.InternalAPI
              }
          }
          [HttpPut]
-         [Route("employees")]
+       //  [Route("employees")]
          public IActionResult UpdateEmploye([FromBody] EmployeeDetailedViewModel employeeDetailed)
          {
              try

@@ -75,7 +75,7 @@ namespace EmployeeManagement.API.Controllers
             }
         }
         [HttpPost]
-        [Route("employees")]
+        [Route("insertemployees")]
         public IActionResult InsertEmployees([FromBody] EmployeeDetailedViewModel employeeDetailed)
         {
             try
@@ -114,8 +114,20 @@ namespace EmployeeManagement.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+        /*public IActionResult UpdateStudent(int id)
+        {
+            try
+            {
+                var employeeDetailedViewModel = _employeeService.GetEmployeeById(id);
+                return Ok(employeeDetailedViewModel);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }*/
         [HttpPut]
-        [Route("employees")]
+        [Route("updateemployees")]
         public IActionResult UpdateEmployees([FromBody] EmployeeDetailedViewModel employeeDetailed)
         {
             try

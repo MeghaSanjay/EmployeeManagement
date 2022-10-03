@@ -1,6 +1,8 @@
-﻿$(document).ready(function () {
+﻿
+$(document).ready(function () {
     bindEvents();
     hideEmployeeDetailCard();
+   
 });
 
 function bindEvents() {
@@ -8,7 +10,7 @@ function bindEvents() {
         var employeeId = event.currentTarget.getAttribute("data-id");
 
         $.ajax({
-            url: 'https://localhost:6001/api/internal/employee/' +employeeId,
+            url: 'https://localhost:6001/api/internal/employees/' + employeeId,
             type: 'GET',
             contentType: "application/json; charset=utf-8",
             success: function (result) {
@@ -28,24 +30,86 @@ function bindEvents() {
             }
         });
     });
-
     $(".employeeDelete").on("click", function (event) {
         var employeeId = event.currentTarget.getAttribute("data-id");
+        var result =confirm("Are you sure want to delete");
+        if (result) {
+            alert("Sucessfully deleted");
+            $.ajax({
+                url: 'https://localhost:6001/api/internal/employees/' + employeeId,
+                type: 'DELETE',
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    location.reload();
+                },
+
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+        else {
+            alert("Not able to delete");
+        }
+    });
+    $("#btnAddSave").on("click", function (event) {
+        
+        var employeeName = $("#insertName").val();
+        var employeeDepartment = $("#insertDepartment").val();
+        var employeeAge = $("#insertAge").val();
+       var employeeAddress = $("#insertAddress").val();
+
+  
+        let employee = {
+            name: employeeName,
+            department: employeeDepartment,
+            age: parseInt( employeeAge),
+            address: employeeAddress
+        };
         $.ajax({
-            url: 'https://localhost:6001/api/internal/employee/' + employeeId,
-            type='DELETE',
-            contentType: "application/json; charset=utf-8",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: 'https://localhost:6001/api/internal/employees',
+            type: 'POST',
+            data: JSON.stringify(employee),
+            dataType: 'json',
             success: function (result) {
-                var employeDelete = '<div class="delete"> </div>'
+
+                location.reload();    
             },
             error: function (error) {
                 console.log(error);
             }
+
         })
+        });
+
+       
+
+
+    $(".employeeEdit").on("click", function (event) {
+       
+        var employeeId = event.currentTarget.getAttribute("data-id");
+        $.ajax({
+            url: 'https://localhost:6001/api/internal/employees/' + employeeId,
+            type: 'PUT',
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                
+            },
+            error: function (error) {
+                console.log(error);
+            }
+
+        })
+     
     });
 }
 
- 
+
+
 function hideEmployeeDetailCard() {
     $("#EmployeeCard").hide();
 }

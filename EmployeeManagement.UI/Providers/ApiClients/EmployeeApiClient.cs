@@ -28,7 +28,7 @@ namespace EmployeeManagement.UI.Providers.ApiClients
 
         public EmployeeDetailedViewModel GetEmployeeById(int id)
         {
-            using (var respose = _httpClient.GetAsync("https://localhost:5001/api/getById/"+id).Result)
+            using (var respose = _httpClient.GetAsync("https://localhost:5001/api/getById/" + id).Result)
             {
                 var employee = JsonConvert.DeserializeObject<EmployeeDetailedViewModel>(respose.Content.ReadAsStringAsync().Result);
                 return employee;
@@ -38,7 +38,7 @@ namespace EmployeeManagement.UI.Providers.ApiClients
         public bool InsertEmployee(EmployeeDetailedViewModel employee)
         {
             var stringContent = new StringContent(JsonConvert.SerializeObject(employee));
-            using (var response = _httpClient.PostAsync("https://localhost:5001/api/employees", stringContent).Result)
+            using (var response = _httpClient.PostAsync("https://localhost:5001/api/insertemployees", stringContent).Result)
             {
 
                 return true;
@@ -47,7 +47,7 @@ namespace EmployeeManagement.UI.Providers.ApiClients
         public bool DeleteEmployee(int id)
         {
             var stringContent = new StringContent(JsonConvert.SerializeObject(id));
-            using (var response=_httpClient.DeleteAsync("https://localhost:5001/api/employees/" + id).Result)
+            using (var response=_httpClient.DeleteAsync("https://localhost:5001/api/employees/"+ id).Result)
             {
                 return true;
             }
@@ -56,7 +56,7 @@ namespace EmployeeManagement.UI.Providers.ApiClients
         public bool UpdateEmployee(EmployeeDetailedViewModel employeeDetailed)
         {
             var stringContent = new StringContent(JsonConvert.SerializeObject(employeeDetailed));
-            using (var response = _httpClient.DeleteAsync("https://localhost:5001/api/employees").Result)
+            using (var response = _httpClient.PutAsync("https://localhost:5001/api/updateemployees",stringContent).Result)
                 return true;
         }   
     }
