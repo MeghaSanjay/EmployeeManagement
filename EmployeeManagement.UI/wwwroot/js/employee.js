@@ -88,38 +88,61 @@ function bindEvents() {
 
     $(".employeeEdit").on("click", function (event) {
         console.log("clicked");
+        var employeeId = event.currentTarget.getAttribute("data-id");
 
-        var nameUpdate = $("#updateName").val();
-        var departmentUpdate = $("#updateDepartment").val();
-        var ageUpdate = $("#updateAge").val();
-        var addressUpdate = $("#updateAddress").val();
-
-        let employees = {
-            name: nameUpdate,
-            department: departmentUpdate,
-            age: parseInt(ageUpdate),
-            address: addressUpdate
-        };
-        console.log(employees);
         $.ajax({
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            url: 'https://localhost:6001/api/internal/employees/',
-            type: 'PUT',
-            data: JSON.stringify(employees),
-            dataType: 'json',
+            url: 'https://localhost:6001/api/internal/employees/' + employeeId,
+            type: 'GET',
+            contentType: "application/json; charset=utf-8",
             success: function (result) {
-                location.reload();
+
+                $("#updateName").val(result.name)
+                $("#updateDepartment").val(result.department)
+                $("#updateAge").val(result.age)
+                $("#updateAddress").val(result.address)
             },
             error: function (error) {
                 console.log(error);
             }
+        });
+        $("#btnAddUpdate").on("click", function (event) {
+            console.log("clicked");
+            var nameUpdate = $("#updateName").val();
+            var departmentUpdate = $("#updateDepartment").val();
+            var ageUpdate = $("#updateAge").val();
+            var addressUpdate = $("#updateAddress").val();
 
-        })
-     
+            let employees = {
+                name: nameUpdate,
+                department: departmentUpdate,
+                age: parseInt(ageUpdate),
+                address: addressUpdate
+            };
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                url: 'https://localhost:6001/api/internal/employees/',
+                type: 'PUT',
+                data: JSON.stringify(employees),
+                dataType: 'json',
+                success: function (result) {
+                    location.reload();
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+
+            })
+
+        });
+
+
     });
+   
+    
+    
 }
 
 

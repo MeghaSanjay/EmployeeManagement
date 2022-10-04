@@ -114,7 +114,7 @@ namespace EmployeeManagement.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-        /*public IActionResult UpdateStudent(int id)
+       /* public IActionResult UpdateStudent(int id)
         {
             try
             {
@@ -124,7 +124,7 @@ namespace EmployeeManagement.API.Controllers
             catch(Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
+           }
         }*/
         [HttpPut]
         [Route("updateemployees")]
