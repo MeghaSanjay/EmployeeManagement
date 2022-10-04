@@ -86,18 +86,32 @@ function bindEvents() {
         })
         });
 
-       
-
-
     $(".employeeEdit").on("click", function (event) {
-       
-        var employeeId = event.currentTarget.getAttribute("data-id");
+        console.log("clicked");
+
+        var nameUpdate = $("#updateName").val();
+        var departmentUpdate = $("#updateDepartment").val();
+        var ageUpdate = $("#updateAge").val();
+        var addressUpdate = $("#updateAddress").val();
+
+        let employees = {
+            name: nameUpdate,
+            department: departmentUpdate,
+            age: parseInt(ageUpdate),
+            address: addressUpdate
+        };
+        console.log(employees);
         $.ajax({
-            url: 'https://localhost:6001/api/internal/employees/' + employeeId,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: 'https://localhost:6001/api/internal/employees/',
             type: 'PUT',
-            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(employees),
+            dataType: 'json',
             success: function (result) {
-                
+                location.reload();
             },
             error: function (error) {
                 console.log(error);

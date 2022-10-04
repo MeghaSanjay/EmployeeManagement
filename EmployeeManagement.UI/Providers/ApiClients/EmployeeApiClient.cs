@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text;
 
 namespace EmployeeManagement.UI.Providers.ApiClients
 {
@@ -37,7 +38,7 @@ namespace EmployeeManagement.UI.Providers.ApiClients
         }
         public bool InsertEmployee(EmployeeDetailedViewModel employee)
         {
-            var stringContent = new StringContent(JsonConvert.SerializeObject(employee));
+            var stringContent = new StringContent(JsonConvert.SerializeObject(employee),Encoding.UTF8,"application/json");
             using (var response = _httpClient.PostAsync("https://localhost:5001/api/insertemployees", stringContent).Result)
             {
 
@@ -55,7 +56,7 @@ namespace EmployeeManagement.UI.Providers.ApiClients
         }
         public bool UpdateEmployee(EmployeeDetailedViewModel employeeDetailed)
         {
-            var stringContent = new StringContent(JsonConvert.SerializeObject(employeeDetailed));
+            var stringContent = new StringContent(JsonConvert.SerializeObject(employeeDetailed),Encoding.UTF8, "application/json");
             using (var response = _httpClient.PutAsync("https://localhost:5001/api/updateemployees",stringContent).Result)
                 return true;
         }   
