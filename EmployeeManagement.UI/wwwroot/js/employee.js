@@ -57,7 +57,11 @@ function bindEvents() {
         var employeeName = $("#insertName").val();
         var employeeDepartment = $("#insertDepartment").val();
         var employeeAge = $("#insertAge").val();
-       var employeeAddress = $("#insertAddress").val();
+        var employeeAddress = $("#insertAddress").val();
+
+        if (employeeName == "" | employeeDepartment == "" | employeeAge == "" | employeeAddress=="") {
+            return;
+        }
 
   
         let employee = {
@@ -77,8 +81,7 @@ function bindEvents() {
             data: JSON.stringify(employee),
             dataType: 'json',
             success: function (result) {
-
-                location.reload();    
+                location.reload();
             },
             error: function (error) {
                 console.log(error);
@@ -113,6 +116,11 @@ function bindEvents() {
             var ageUpdate = $("#updateAge").val();
             var addressUpdate = $("#updateAddress").val();
 
+            if (nameUpdate == "" | departmentUpdate == "" | ageUpdate == "" | addressUpdate == "") {
+                return;
+            }
+
+
             let employees = {
                 id: parseInt(employeeId),
                 name: nameUpdate,
@@ -138,12 +146,7 @@ function bindEvents() {
             })
         });
     });
-   /*$('#btnAddSave').validate({
-        rules: {
-            isLocationEmpty: true,
-        }
-    }); */
-    
+   
     
 }
 
