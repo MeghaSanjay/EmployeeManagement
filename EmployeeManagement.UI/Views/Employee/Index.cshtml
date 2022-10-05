@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<EmployeeViewModel>
 
 
-<h3 class="display-4">Employees</h3>
-
-<div class="text-center">
+<h3 class="display-4">Employee Management System</h3>
+<body style="background-color: antiquewhite;">
+<div class="text-left">
     <a href="" class="btn btn-success" data-toggle="modal" data-target="#modalContactForm">
-       Add Employee
+        Add Employee
     </a>
 </div>
 <table class="table table-bordered">
@@ -27,22 +27,22 @@
     </thead>
     @foreach (var employee in Model)
     {
-    <tr>
-        <td>@employee.Id</td>
-        <td>@employee.Name</td>
-        <td>@employee.Department</td>
-        <td>
-            <button class="btn btn-primary employeeDetails" data-id="@employee.Id"> Details</button>
+<tr>
+    <td>@employee.Id</td>
+    <td>@employee.Name</td>
+    <td>@employee.Department</td>
+    <td>
+        <button class="btn btn-primary employeeDetails" data-id="@employee.Id"> Details</button>
 
-           @* <a href="" class="btn btn-info employeeEdit" data-toggle="modal" data-target="#modalContactForms">
+        @* <a href="" class="btn btn-info employeeEdit" data-toggle="modal" data-target="#modalContactForms">
                 Edit
             </a>*@
-            <button class="btn btn-info employeeEdit" data-id="@employee.Id" data-toggle="modal" data-target="#modalContactForms"> Edit</button>
-            @*  <button class="btn btn-info employeeEdit" data-id="@employee.Id"> Edit</button>*@
-            <button class="btn btn-danger employeeDelete" data-id="@employee.Id"> Delete</button>
-        </td>
-    </tr>
-    }
+        <button class="btn btn-info employeeEdit" data-id="@employee.Id" data-toggle="modal" data-target="#modalContactForms"> Edit</button>
+        @*  <button class="btn btn-info employeeEdit" data-id="@employee.Id"> Edit</button>*@
+        <button class="btn btn-danger employeeDelete" data-id="@employee.Id"> Delete</button>
+    </td>
+</tr>
+}
 </table>
 
 <div id="EmployeeCard">
@@ -62,31 +62,31 @@
             <div class="modal-body mx-3">
                 <div class="md-form mb-5">
                     <i class="fas fa-user prefix grey-text"></i>
-                    <input type="text" id="insertName" class="form-control validate">
-                    <label data-error="wrong" data-success="right" for="insertName">Name</label>
-                </div>
+                    <input type="text" id="insertName"  class="form-control validate">
+                        <label data-error="wrong" data-success="right" for="insertName">Name</label>
+                    </div>
 
-                <div class="md-form mb-5">
-                    <i class="fas fa-envelope prefix grey-text"></i>
-                    <input type="email" id="insertDepartment" class="form-control validate">
-                    <label data-error="wrong" data-success="right" for="insertDepartment">Department</label>
-                </div>
+                    <div class="md-form mb-5">
+                        <i class="fas fa-envelope prefix grey-text"></i>
+                        <input type="email" id="insertDepartment" class="form-control validate">
+                        <label data-error="wrong" data-success="right" for="insertDepartment">Department</label>
+                    </div>
 
-                <div class="md-form mb-5">
-                    <i class="fas fa-tag prefix grey-text"></i>
-                    <input type="number" id="insertAge" class="form-control validate">
-                    <label data-error="wrong" data-success="right" for="insertAge">Age</label>
-                </div>
+                    <div class="md-form mb-5">
+                        <i class="fas fa-tag prefix grey-text"></i>
+                        <input type="number" id="insertAge" class="form-control validate">
+                        <label data-error="wrong" data-success="right" for="insertAge">Age</label>
+                    </div>
 
-                <div class="md-form">
-                    <i class="fas fa-pencil prefix grey-text"></i>
-                    <textarea type="text" id="insertAddress" class="md-textarea form-control" rows="4"></textarea>
-                    <label data-error="wrong" data-success="right" for="insertAddress">Address</label>
-                </div>
+                    <div class="md-form">
+                        <i class="fas fa-pencil prefix grey-text"></i>
+                        <textarea type="text" id="insertAddress" class="md-textarea form-control" rows="4"></textarea>
+                        <label data-error="wrong" data-success="right" for="insertAddress">Address</label>
+                    </div>
 
-            </div>
+                </div>
             <div class="modal-footer d-flex justify-content-center">
-                <button class="btn btn-unique" id="btnAddSave">Save <i class="fas fa-paper-plane-o ml-1"></i></button>
+                <button  class="btn btn-success" id="btnAddSave">Save <i class="fas fa-paper-plane-o ml-1"></i></button>
             </div>
         </div>
     </div>
@@ -103,44 +103,43 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-                <div class="modal-body mx-3">
-                    <div class="md-form mb-5">
-                        <i class="fas fa-user prefix grey-text"></i>
-                        <input type="text" id="updateName" class="form-control validate">
-                        <label data-error="wrong" data-success="right" for="updateName">Name</label>
-                    </div>
-
-                    <div class="md-form mb-5">
-                        <i class="fas fa-envelope prefix grey-text"></i>
-                        <input type="email" id="updateDepartment" class="form-control validate">
-                        <label data-error="wrong" data-success="right" for="updateDepartment">Department</label>
-                    </div>
-
-                    <div class="md-form mb-5">
-                        <i class="fas fa-tag prefix grey-text"></i>
-                        <input type="number" id="updateAge" class="form-control validate">
-                        <label data-error="wrong" data-success="right" for="updateAge">Age</label>
-                    </div>
-
-                    <div class="md-form">
-                        <i class="fas fa-pencil prefix grey-text"></i>
-                        <textarea type="text" id="updateAddress" class="md-textarea form-control" rows="4"></textarea>
-                        <label data-error="wrong" data-success="right" for="updateAddress">Address</label>
-                    </div>
-
+            <div class="modal-body mx-3">
+                <div class="md-form mb-5">
+                    <i class="fas fa-user prefix grey-text"></i>
+                    <input type="text" id="updateName" class="form-control validate">
+                    <label data-error="wrong" data-success="right" for="updateName">Name</label>
                 </div>
-                <div class="modal-footer d-flex justify-content-center">
-                    <button class="btn btn-info" id="btnAddUpdate">Update <i class="fas fa-paper-plane-o ml-1"></i></button>
+
+                <div class="md-form mb-5">
+                    <i class="fas fa-envelope prefix grey-text"></i>
+                    <input type="email" id="updateDepartment" class="form-control validate">
+                    <label data-error="wrong" data-success="right" for="updateDepartment">Department</label>
                 </div>
+
+                <div class="md-form mb-5">
+                    <i class="fas fa-tag prefix grey-text"></i>
+                    <input type="number" id="updateAge" class="form-control validate">
+                    <label data-error="wrong" data-success="right" for="updateAge">Age</label>
+                </div>
+
+                <div class="md-form">
+                    <i class="fas fa-pencil prefix grey-text"></i>
+                    <textarea type="text" id="updateAddress" class="md-textarea form-control" rows="4"></textarea>
+                    <label data-error="wrong" data-success="right" for="updateAddress">Address</label>
+                </div>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button class="btn btn-info" id="btnAddUpdate">Update <i class="fas fa-paper-plane-o ml-1"></i></button>
             </div>
         </div>
     </div>
+</div>
+</body>
 
+@section Scripts{
 
-    @section Scripts{
-
-        <script src="~/js/employee.js"></script> }
-
+    <script src="~/js/employee.js"></script> }
 
 
 

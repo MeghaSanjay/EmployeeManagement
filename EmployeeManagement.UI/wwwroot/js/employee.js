@@ -61,6 +61,7 @@ function bindEvents() {
 
   
         let employee = {
+            
             name: employeeName,
             department: employeeDepartment,
             age: parseInt( employeeAge),
@@ -113,6 +114,7 @@ function bindEvents() {
             var addressUpdate = $("#updateAddress").val();
 
             let employees = {
+                id: parseInt(employeeId),
                 name: nameUpdate,
                 department: departmentUpdate,
                 age: parseInt(ageUpdate),
@@ -133,14 +135,14 @@ function bindEvents() {
                 error: function (error) {
                     console.log(error);
                 }
-
             })
-
         });
-
-
     });
-   
+   /*$('#btnAddSave').validate({
+        rules: {
+            isLocationEmpty: true,
+        }
+    }); */
     
     
 }
