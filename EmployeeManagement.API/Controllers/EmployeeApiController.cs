@@ -36,7 +36,7 @@ namespace EmployeeManagement.API.Controllers
                     Name=employeeDetailedViewModel.Name,
                     Department=employeeDetailedViewModel.Department,
                     Age=employeeDetailedViewModel.Age,
-                    Address=employeeDetailedViewModel.Address
+                    Address=employeeDetailedViewModel.Address 
                 };
                 return Ok(employeDto);
             }

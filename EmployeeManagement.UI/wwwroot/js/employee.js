@@ -30,6 +30,7 @@ function bindEvents() {
             }
         });
     });
+
     $(".employeeDelete").on("click", function (event) {
         var employeeId = event.currentTarget.getAttribute("data-id");
         var result =confirm("Are you sure want to delete");
@@ -91,7 +92,6 @@ function bindEvents() {
         });
 
     $(".employeeEdit").on("click", function (event) {
-        console.log("clicked");
         var employeeId = event.currentTarget.getAttribute("data-id");
 
         $.ajax({
@@ -110,7 +110,6 @@ function bindEvents() {
             }
         });
         $("#btnAddUpdate").on("click", function (event) {
-            console.log("clicked");
             var nameUpdate = $("#updateName").val();
             var departmentUpdate = $("#updateDepartment").val();
             var ageUpdate = $("#updateAge").val();
@@ -145,11 +144,8 @@ function bindEvents() {
                 }
             })
         });
-    });
-   
-    
+    });    
 }
-
 
 
 function hideEmployeeDetailCard() {

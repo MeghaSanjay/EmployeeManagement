@@ -35,22 +35,8 @@ namespace EmployeeManagement.UI.Controllers.InternalAPI
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-        [HttpGet]
-     //   [Route("employees")]
-        public IActionResult GetEmploye()
-        {
-            try
-            {
-                var employee = _employeeApiClient.GetEmployees();
-                return Ok(employee);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
-        }
+
         [HttpPost]
-      //  [Route("employees")]
         public IActionResult InsertEmployes([FromBody] EmployeeDetailedViewModel employeeDetailed)
         {
             try
@@ -63,36 +49,36 @@ namespace EmployeeManagement.UI.Controllers.InternalAPI
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
         [HttpDelete]
         [Route("{id}")]
-         public IActionResult DeleteEmploye([FromRoute] int id)
-         {
-             try
-             {
-                 var employe = _employeeApiClient.DeleteEmployee(id);
-                 return Ok(employe);
+        public IActionResult DeleteEmploye([FromRoute] int id)
+        {
+            try
+            {
+                var employe = _employeeApiClient.DeleteEmployee(id);
+                return Ok(employe);
 
-             }
-             catch (Exception ex)
-             {
-                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-             }
-         }
-         [HttpPut]
-       //  [Route("employees")]
-         public IActionResult UpdateEmploye([FromBody] EmployeeDetailedViewModel employeeDetailed)
-         {
-             try
-             {
-                 var employe = _employeeApiClient.UpdateEmployee(employeeDetailed);
-                 return Ok(employe);
-             }
-             catch(Exception ex)
-             {
-                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-             }
-         }
- 
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
+        [HttpPut]
+        public IActionResult UpdateEmploye([FromBody] EmployeeDetailedViewModel employeeDetailed)
+        {
+            try
+            {
+                var employe = _employeeApiClient.UpdateEmployee(employeeDetailed);
+                return Ok(employe);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
     }
+}
 

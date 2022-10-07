@@ -14,11 +14,7 @@ namespace EmployeeManagement.DataAccess.Repository
     {
         
         private SqlConnection _sqlConnection;
-        /*public EmployeeRepository(string connectionString)
-        {
-
-            _sqlConnection = new SqlConnection(connectionString);
-        }*/
+       
         public EmployeeRepository()
             {
             _sqlConnection = new SqlConnection("data source=(localdb)\\mssqllocaldb;database=TRAINING;");
