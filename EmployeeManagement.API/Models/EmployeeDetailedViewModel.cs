@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace EmployeeManagement.API.Models
 {
@@ -11,5 +12,7 @@ namespace EmployeeManagement.API.Models
         public string Department { get; set; }
         public int Age { get; set; }
         public string Address { get; set; }
+
+
     }
 }

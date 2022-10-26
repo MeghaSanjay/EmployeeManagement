@@ -13,6 +13,8 @@ namespace EmployeeManagement.Application.Contracts
         bool InsertEmployee(EmployeeDto employees);
         bool DeleteEmployee(int id);
         bool UpdateEmployee(EmployeeDto employees);
-       
+      
+
+
     }
 }

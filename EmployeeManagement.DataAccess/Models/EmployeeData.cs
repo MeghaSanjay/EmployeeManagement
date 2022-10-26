@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace EmployeeManagement.DataAccess.Models
 {
@@ -10,5 +11,10 @@ namespace EmployeeManagement.DataAccess.Models
         public string Department { get; set; }
         public int Age { get; set; }
         public string Address { get; set; }
+
+        public bool GetEmployeeById()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -28,8 +28,12 @@ namespace EmployeeManagement.API.Controllers
             try
             {
                 /// get employee by calling GetEmployeeById() in IEmployeeService and store it in a variable and Map that variable to EmployeeDetailedViewModel.
-                
+                ValidateEmployee(Id); 
                var employeeDetailedViewModel = _employeeService.GetEmployeeById(Id);
+                if (employeeDetailedViewModel == null) {
+                    throw new Exception("Invalid id");
+                }
+
                 var employeDto = new EmployeeDto
                 {
                     Id=employeeDetailedViewModel.Id,
@@ -40,6 +44,11 @@ namespace EmployeeManagement.API.Controllers
                 };
                 return Ok(employeDto);
             }
+            catch (ArgumentException ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+            }
+
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
@@ -54,6 +63,10 @@ namespace EmployeeManagement.API.Controllers
             try
             {
                 var listOfEmployeeView = _employeeService.GetEmployees();
+                if(listOfEmployeeView==null)
+                {
+                    throw new Exception("No data found");
+                }
                 var listOfEmployeView = new List<EmployeeDetailedViewModel>();
                 foreach(var employeView in listOfEmployeeView)
                 {
@@ -89,6 +102,10 @@ namespace EmployeeManagement.API.Controllers
                     Address = employeeDetailed.Address
                 };
                 var employeeDetailedViewModel = _employeeService.InsertEmployee(employeeDto);
+               if(!employeeDetailedViewModel)
+                {
+                    throw new Exception("Cannot insert");
+                }
                 return Ok(employeeDetailedViewModel);
             }
             catch (Exception ex)
@@ -102,36 +119,32 @@ namespace EmployeeManagement.API.Controllers
         {
             try
             {
-               /* var employeeDto = new EmployeeDto()
-                {
-                    Id =id
-                };*/
+                ValidateEmployee(id);
                 var employeeDetailedViewModel = _employeeService.DeleteEmployee(id);
+                if (!employeeDetailedViewModel)
+                {
+                    throw new Exception("Invalid Employee");
+                }
                 return Ok(employeeDetailedViewModel);
             }
+            catch (ArgumentException ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+            }
+
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-       /* public IActionResult UpdateStudent(int id)
-        {
-            try
-            {
-                var employeeDetailedViewModel = _employeeService.GetEmployeeById(id);
-                return Ok(employeeDetailedViewModel);
-            }
-            catch(Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-           }
-        }*/
+      
         [HttpPut]
         [Route("updateemployees")]
         public IActionResult UpdateEmployees([FromBody] EmployeeDetailedViewModel employeeDetailed)
         {
             try
             {
+               
                 var employeeDto = new EmployeeDto()
                 {
                     Id= employeeDetailed.Id,
@@ -140,7 +153,12 @@ namespace EmployeeManagement.API.Controllers
                     Age = employeeDetailed.Age,
                     Address = employeeDetailed.Address
                 };
-                var employeeDetailedViewModel = _employeeService.UpdateEmployee(employeeDto);
+               
+               var employeeDetailedViewModel = _employeeService.UpdateEmployee(employeeDto);
+                if(!employeeDetailedViewModel)
+                {
+                    throw new Exception("Invalid Employee");
+                }
                 return Ok(employeeDetailedViewModel);
             }
             catch (Exception ex)
@@ -148,6 +166,12 @@ namespace EmployeeManagement.API.Controllers
                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-        
+        private void ValidateEmployee(int id)
+        {
+            if (id < 0)
+            {
+                throw new ArgumentException("Invalid id");
+            }
+        }
     }
 }

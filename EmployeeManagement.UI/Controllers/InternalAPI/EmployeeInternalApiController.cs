@@ -26,9 +26,18 @@ namespace EmployeeManagement.UI.Controllers.InternalAPI
         {
             try
             {
+                ValidateEmployee(id);
                 var employee = _employeeApiClient.GetEmployeeById(id);
+                if(employee==null)
+                {
+                    throw new Exception("Invalid id");
+                }
 
                 return Ok(employee);
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
             }
             catch (Exception ex)
             {
@@ -42,6 +51,11 @@ namespace EmployeeManagement.UI.Controllers.InternalAPI
             try
             {
                 var employe = _employeeApiClient.InsertEmployee(employeeDetailed);
+               if(!employe)
+                {
+                    throw new Exception("Cannot insert");
+                }
+                
                 return Ok(employe);
             }
             catch (Exception ex)
@@ -56,9 +70,18 @@ namespace EmployeeManagement.UI.Controllers.InternalAPI
         {
             try
             {
+                ValidateEmployee(id);
                 var employe = _employeeApiClient.DeleteEmployee(id);
+               /* if(!employe)
+                {
+                    throw new Exception("Invalid id");
+                }*/
                 return Ok(employe);
 
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
             }
             catch (Exception ex)
             {
@@ -71,6 +94,10 @@ namespace EmployeeManagement.UI.Controllers.InternalAPI
             try
             {
                 var employe = _employeeApiClient.UpdateEmployee(employeeDetailed);
+                if (!employe )
+                {
+                    throw new Exception("Invalid Employee");
+                }
                 return Ok(employe);
             }
             catch (Exception ex)
@@ -78,6 +105,14 @@ namespace EmployeeManagement.UI.Controllers.InternalAPI
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+        private void ValidateEmployee(int id)
+        {
+            if (id < 0)
+            {
+                throw new ArgumentException("Invalid id");
+            }
+        }
+
 
     }
 }
