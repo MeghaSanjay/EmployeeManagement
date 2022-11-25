@@ -22,7 +22,7 @@ namespace EmployeeServiceTest
         public void TestInitialize()
         {
             _mockEmployeeRepository = new Mock<IEmployeeRepository>();
-            _employeeService = new EmployeeService(_mockEmployeeRepository.Object);
+            _employeeService = new EmployeeService(_mockEmployeeRepository.Object,null);
 
         }
         [TestMethod]
@@ -70,7 +70,9 @@ namespace EmployeeServiceTest
             var result = _employeeService.GetEmployees();
             //Assert
             Assert.IsNotNull(result);
-       
+            //Verify
+            _mockEmployeeRepository.Verify(m => m.GetEmployees(),Times.Once);
+
         }
         [TestMethod]
         [ExpectedException(typeof(Exception))]
@@ -81,8 +83,7 @@ namespace EmployeeServiceTest
             //Act
             var result = _employeeService.GetEmployees();
             //Assert
-            Assert.IsNotNull(result);
-          
+            Assert.IsNotNull(result); 
         }
 
         [TestMethod]
@@ -94,6 +95,8 @@ namespace EmployeeServiceTest
             var result = _employeeService.InsertEmployee(new EmployeeDto()); ;
             //Assert
             Assert.IsNotNull(result);
+            //Verify
+            _mockEmployeeRepository.Verify(m => m.InsertEmployee(It.IsAny<EmployeeData>()),Times.Once);
         }
 
          [TestMethod]
@@ -105,8 +108,7 @@ namespace EmployeeServiceTest
              //Act
              var result = _employeeService.InsertEmployee(new EmployeeDto());
              //Assert
-             Assert.IsNotNull(result);
-            //* Assert.IsTrue(result.StatusCode == StatusCodes.Status500InternalServerError);*//*
+             Assert.IsNotNull(result);  
          }
 
         [TestMethod]
@@ -118,6 +120,8 @@ namespace EmployeeServiceTest
             var result = _employeeService.UpdateEmployee(new EmployeeDto());
             //Assert
             Assert.IsNotNull(result);
+            //Verify
+            _mockEmployeeRepository.Verify(m => m.UpdateEmployee(It.IsAny<EmployeeData>()),Times.Once);
         }
          [TestMethod]
         [ExpectedException(typeof(Exception))]
@@ -142,6 +146,8 @@ namespace EmployeeServiceTest
             var result = _employeeService.DeleteEmployee(5);
             //Assert
             Assert.IsNotNull(result);
+            //verify
+            _mockEmployeeRepository.Verify(m => m.DeleteEmployee(5),Times.Once);
         }
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]

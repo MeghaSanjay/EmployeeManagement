@@ -33,7 +33,7 @@ namespace EmployeeManagement.UI
             services.RegisterDependencies();
             services.AddScoped<IEmployeeRepository,EmployeeRepository>();
             services.AddHttpClient<IEmployeeApiClient, EmployeeApiClient>();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews();     
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

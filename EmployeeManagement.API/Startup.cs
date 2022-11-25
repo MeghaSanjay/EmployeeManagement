@@ -1,5 +1,6 @@
 using EmployeeManagement.API.Configuration;
 using EmployeeManagement.Application.Contracts;
+using EmployeeManagement.Application.Models;
 using EmployeeManagement.Application.Services;
 using EmployeeManagement.DataAccess.Contracts;
 using EmployeeManagement.DataAccess.Repository;
@@ -31,10 +32,8 @@ namespace EmployeeManagement.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.RegisterDependencies();
-          // var connectionString = Configuration.GetValue<string>("ConnectionStrings:StudentDbConnectionString");
-          //  services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-
             services.AddControllers();
+            services.Configure<HasuraConfiguration>(this.Configuration.GetSection("HasuraConfiguration"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -44,6 +44,9 @@ namespace EmployeeInternalApiControllerTest
             Assert.IsNotNull(result.Value);
             Assert.IsTrue(result.StatusCode == StatusCodes.Status200OK);
             Assert.AreEqual(result.StatusCode, StatusCodes.Status200OK);
+            //Verify
+            _mockEmployeeApiClient.Verify(m => m.GetEmployeeById(3),Times.Once);
+
         }
 
         [TestMethod]
@@ -78,6 +81,9 @@ namespace EmployeeInternalApiControllerTest
             //Assert
             Assert.IsNotNull(result.Value);
             Assert.IsTrue(result.StatusCode == StatusCodes.Status200OK);
+            //Verify
+            _mockEmployeeApiClient.Verify(m => m.InsertEmployee(It.IsAny<EmployeeDetailedViewModel>()),Times.Once);
+
         }
         [TestMethod]
         public void InsertEmployee_ReturnNull()
@@ -96,7 +102,7 @@ namespace EmployeeInternalApiControllerTest
             //Arrange
             _mockEmployeeApiClient.Setup(m => m.UpdateEmployee(It.IsAny<EmployeeDetailedViewModel>())).Returns(true);
             //Act
-            var result = _employeeInternalApiController.InsertEmployes(new EmployeeDetailedViewModel()) as OkObjectResult;
+            var result = _employeeInternalApiController.UpdateEmploye(new EmployeeDetailedViewModel()) as OkObjectResult;
             //Assert
             Assert.IsNotNull(result.Value);
             Assert.IsTrue(result.StatusCode == StatusCodes.Status200OK);

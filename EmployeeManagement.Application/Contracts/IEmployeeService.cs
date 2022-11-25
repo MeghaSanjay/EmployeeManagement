@@ -3,6 +3,7 @@ using EmployeeManagement.DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EmployeeManagement.Application.Contracts
 {
@@ -13,7 +14,11 @@ namespace EmployeeManagement.Application.Contracts
         bool InsertEmployee(EmployeeDto employees);
         bool DeleteEmployee(int id);
         bool UpdateEmployee(EmployeeDto employees);
-      
+        Task<IEnumerable<EmployeeDto>> GetEmployeeSaveToHasura();
+        Task<EmployeeDto> GetEmployeeByIdSaveToHasura(int id);
+        Task<int> InsertEmployeeSaveToHasura(EmployeeHasura employeeHasura);
+        Task<bool> DeleteEmployeeSaveToHasura(int id);
+
 
 
     }

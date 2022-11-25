@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace EmployeeApiControllerTest
 {
@@ -38,13 +39,20 @@ namespace EmployeeApiControllerTest
         public void GetEmployeesById_ReturnSucess()
         {
             //Arrange
+
             _mockEmployeeService.Setup(m => m.GetEmployeeById(7)).Returns(GetDummyEmployeeSucess());
+            /*{
+                Assert.AreEqual(result.StatusCode, StatusCodes.Status200OK);
+            }));*/
+            // ;
             //Act
             var result = _employeeApiController.GetEmployeesById(7) as OkObjectResult;
             //Assert
             Assert.IsNotNull(result.Value);
             Assert.IsTrue(result.StatusCode == StatusCodes.Status200OK);
             Assert.AreEqual(result.StatusCode, StatusCodes.Status200OK);
+            //Verify
+            _mockEmployeeService.Verify(m => m.GetEmployeeById(7), Times.Once);
         }
         [TestMethod]
         public void GetEmployeeById_RetursNull()
@@ -81,6 +89,8 @@ namespace EmployeeApiControllerTest
             //Assert
             Assert.IsNotNull(result.Value);
             Assert.IsTrue(result.StatusCode == StatusCodes.Status200OK);
+            //Verify
+            _mockEmployeeService.Verify(m => m.GetEmployees(),Times.Once);
         }
         [TestMethod]
         public void GetEmployees_ReturnNull()
@@ -104,7 +114,10 @@ namespace EmployeeApiControllerTest
             //Assert
             Assert.IsNotNull(result.Value);
             Assert.IsTrue(result.StatusCode == StatusCodes.Status200OK);
-           
+            //Verify
+            _mockEmployeeService.Verify(m => m.InsertEmployee(It.IsAny<EmployeeDto>()),Times.Once);
+
+
         }
 
        [TestMethod]
@@ -129,6 +142,8 @@ namespace EmployeeApiControllerTest
             //Assert
             Assert.IsNotNull(result.Value);
             Assert.IsTrue(result.StatusCode == StatusCodes.Status200OK);
+            //Verify
+            _mockEmployeeService.Verify(m => m.UpdateEmployee(It.IsAny<EmployeeDto>()),Times.Once);
         }
         [TestMethod]
         public void UpdataEmployee_ReturnNull()
@@ -153,6 +168,8 @@ namespace EmployeeApiControllerTest
             //Assert
             Assert.IsNotNull(result.Value);
             Assert.IsTrue(result.StatusCode == StatusCodes.Status200OK);
+            //Verify
+            _mockEmployeeService.Verify(m => m.DeleteEmployee(5),Times.Once);
 
 
         }
